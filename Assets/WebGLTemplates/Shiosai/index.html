@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#15272a"><title>潮路の釣り手帖 | 潮彩作品集</title>
+  <link rel="icon" href="icon.png"><link rel="stylesheet" href="player.css">
+</head>
+<body>
+<header><span class="imprint">潮彩作品集</span><a href="https://github.com/kaxic/shiosai-tide-journal">GitHub ↗</a></header>
+<main>
+  <section id="stage" aria-label="ゲーム画面">
+    <canvas id="game" width="1280" height="720" tabindex="0" aria-label="潮路の釣り手帖のゲーム画面"></canvas>
+    <div id="cover">
+      <div class="titleblock"><p class="genre">釣りと魚類図鑑</p><h1>潮路の釣り手帖</h1><p class="intro">朝の源流から、白波の立つ外礁まで。
+竿を手に、四つの水辺で二十四種の魚に出会う旅へ。</p>
+        <button id="launch">ゲームを開始 <span aria-hidden="true">›</span></button>
+        <div id="status" role="status" aria-live="polite"></div><progress id="meter" max="1" value="0" hidden></progress>
+      </div>
+    </div>
+  </section>
+  <div class="bar"><span class="wordmark">潮路の釣り手帖</span><div class="buttons"><button id="help">操作方法</button><button id="full">全画面</button><a id="demo" href="media/demo.mp4" hidden>プレイ映像 ▷</a></div></div>
+  <dialog id="guide"><div class="dialogtop"><h2>操作方法</h2><button class="close">閉じる</button></div><p>キーボードとマウスで遊べます。進行はこのブラウザーに保存されます。</p><div id="controls">WASD・矢印で歩き、釣り場でEかSpaceで構える。左右で方向、上下で距離を決め、Spaceで投竿。浮きが沈んだらSpaceで合わせます。
+魚とのやり取りはSpace長押しで巻く、離して緩める。X 回収　P ゆっくり釣り。
+
+T 渡航　B 売店　H 釣り手帖　J 依頼　R 時刻。　F8 釣果カードの保存　F9 アルバム。
+
+Escで休憩、F1でゲーム内ヘルプ、F5で保存、F12で写真を撮れます。</div></dialog>
+  <dialog id="album"><div class="dialogtop"><h2>写真の保存</h2><button class="close">閉じる</button></div><div id="prints"></div></dialog>
+</main>
+<script>
+const canvas=document.getElementById('game');
+const cover=document.getElementById('cover');
+const launchButton=document.getElementById('launch');
+const statusLine=document.getElementById('status');
+const meter=document.getElementById('meter');
+let instance=null;
+const build='Build/';
+const config={
+  dataUrl:build+'{{{ DATA_FILENAME }}}',frameworkUrl:build+'{{{ FRAMEWORK_FILENAME }}}',codeUrl:build+'{{{ CODE_FILENAME }}}',
+  streamingAssetsUrl:'StreamingAssets',companyName:'{{{ COMPANY_NAME }}}',productName:'{{{ PRODUCT_NAME }}}',productVersion:'{{{ PRODUCT_VERSION }}}',
+  devicePixelRatio:Math.min(1.5,window.devicePixelRatio||1),
+  showBanner:function(message,type){ if(type==='error'){statusLine.textContent='読み込みに失敗しました。ページを再読み込みしてください。';console.error(message);} }
+};
+async function startGame(){
+  launchButton.disabled=true; statusLine.textContent='ゲームを読み込んでいます…';meter.hidden=false;
+  try{
+    if(typeof createUnityInstance!=='function')await new Promise((resolve,reject)=>{const s=document.createElement('script'); s.src=build+'{{{ LOADER_FILENAME }}}';s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});
+    instance=await createUnityInstance(canvas,config,value=>{meter.value=value;statusLine.textContent='読み込み中　'+Math.round(100*value)+'%';});
+    cover.hidden=true;canvas.focus();document.body.classList.add('playing');
+  }catch(e){statusLine.textContent='ゲームを開始できませんでした。WebGL 2に対応したブラウザーで再試行してください。';meter.hidden=true;launchButton.disabled=false;console.error(e);}
+}
+launchButton.addEventListener('click',startGame);
+document.getElementById('full').addEventListener('click',()=>{if(instance){instance.SetFullscreen(1);canvas.focus();}else document.getElementById('stage').requestFullscreen?.();});
+document.getElementById('help').addEventListener('click',()=>document.getElementById('guide').showModal());
+document.querySelectorAll('dialog .close').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+document.querySelectorAll('dialog').forEach(d=>d.addEventListener('close',()=>{if(instance)canvas.focus();}));
+const urls=[];
+window.shiosaiPictures=function(pictures){
+  const area=document.getElementById('prints');area.replaceChildren();urls.splice(0).forEach(u=>URL.revokeObjectURL(u));
+  if(!pictures.length)area.textContent='撮影した写真はここに並びます。';
+  for(const pic of pictures){const url=URL.createObjectURL(new Blob([pic.bytes],{type:'image/png'}));urls.push(url);
+    const a=document.createElement('a');a.download=pic.name;a.href=url;const img=new Image();img.alt=pic.name;img.src=url;
+    a.append(img,document.createTextNode('PNGを保存'));area.append(a);}
+  const album=document.getElementById('album');if(!album.open)album.showModal();
+};
+canvas.addEventListener('keydown',e=>{if(['Tab','Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','F1','F5','F8','F9','F12'].includes(e.code))e.preventDefault();});
+fetch('media/available.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(v=>{if(v&&v.demo)document.getElementById('demo').hidden=false;}).catch(()=>{});
+</script>
+</body></html>
