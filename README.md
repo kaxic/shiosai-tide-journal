@@ -4,6 +4,8 @@
 
 **[ブラウザーで遊ぶ](https://kaxic.github.io/shiosai-tide-journal/)**
 
+[実際のプレイ映像を見る](https://kaxic.github.io/shiosai-tide-journal/media/demo.mp4)
+
 ![潮路の釣り手帖のゲーム画面](Guides/Tides.jpg)
 
 [遊び方と手動で拡張する方法](Guides/Tides.md)
