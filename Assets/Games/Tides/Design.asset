@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde763a7415b356449cee39cb01180d9, type: 3}
+  m_Name: Design
+  m_EditorClassIdentifier: Assembly-CSharp::StudioSkin
+  key: Tides
+  title: "\u6F6E\u8DEF\u306E\u91E3\u308A\u624B\u5E16"
+  english: THE TIDE ANGLER'S JOURNAL
+  product: The Tide Anglers Journal
+  introduction: "\u671D\u306E\u6E90\u6D41\u304B\u3089\u3001\u767D\u6CE2\u306E\u7ACB\u3064\u5916\u7901\u307E\u3067\u3002\n\u7AFF\u3092\u624B\u306B\u3001\u56DB\u3064\u306E\u6C34\u8FBA\u3067\u4E8C\u5341\u56DB\u7A2E\u306E\u9B5A\u306B\u51FA\u4F1A\u3046\u65C5\u3078\u3002"
+  controls: "WASD\u30FB\u77E2\u5370\u3067\u6B69\u304D\u3001\u91E3\u308A\u5834\u3067E\u304BSpace\u3067\u69CB\u3048\u308B\u3002\u5DE6\u53F3\u3067\u65B9\u5411\u3001\u4E0A\u4E0B\u3067\u8DDD\u96E2\u3092\u6C7A\u3081\u3001Space\u3067\u6295\u7AFF\u3002\u6D6E\u304D\u304C\u6C88\u3093\u3060\u3089Space\u3067\u5408\u308F\u305B\u307E\u3059\u3002\n\u9B5A\u3068\u306E\u3084\u308A\u53D6\u308A\u306FSpace\u9577\u62BC\u3057\u3067\u5DFB\u304F\u3001\u96E2\u3057\u3066\u7DE9\u3081\u308B\u3002X
+    \u56DE\u53CE\u3000P \u3086\u3063\u304F\u308A\u91E3\u308A\u3002\n\nT \u6E21\u822A\u3000B
+    \u58F2\u5E97\u3000H \u91E3\u308A\u624B\u5E16\u3000J \u4F9D\u983C\u3000R \u6642\u523B\u3002\u3000F8
+    \u91E3\u679C\u30AB\u30FC\u30C9\u306E\u4FDD\u5B58\u3000F9 \u30A2\u30EB\u30D0\u30E0\u3002"
+  accent: {r: 0.83137256, g: 0.6666667, b: 0.40784314, a: 1}
+  ink: {r: 0.09019608, g: 0.23921569, b: 0.26666668, a: 1}
+  paper: {r: 0.9607843, g: 0.9254902, b: 0.83137256, a: 1}
+  cover: {fileID: 2800000, guid: ec104a11de3c54249a802f3cae50be6d, type: 3}
+  illustrations: {fileID: 2800000, guid: 0c3c9c33ae682ff4785c578312c7aeee, type: 3}
+  specimenPlate: {fileID: 2800000, guid: 27dd131f21914080b8fa832a8061ceec, type: 3}
+  music: {fileID: 8300000, guid: 87baf712d4d1c9e418cb64fb10c29a59, type: 3}
+  activityMusic: {fileID: 8300000, guid: 0c8e64fbd6a846d408127119779fc246, type: 3}
+  effects:
+  - {fileID: 8300000, guid: 193357e957998a1499d597f501e5139e, type: 3}
+  - {fileID: 8300000, guid: d6419a11856eee947a314d6839abd96d, type: 3}
+  - {fileID: 8300000, guid: bfbc4f8a98bedba45a9259c436070ad7, type: 3}
+  - {fileID: 8300000, guid: bf499102f4771024f80d0fe45fed5787, type: 3}
+  - {fileID: 8300000, guid: 968de18c2f42352498a35ce48960009d, type: 3}
