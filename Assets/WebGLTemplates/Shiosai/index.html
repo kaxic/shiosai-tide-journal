@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#15272a"><title>潮路の釣り手帖 | 潮彩作品集</title>
-  <link rel="icon" href="icon.png"><link rel="stylesheet" href="player.css">
+  <link rel="icon" href="icon.png"><link rel="stylesheet" href="player.css"><link rel="stylesheet" href="touch.css"><script defer src="touch.js"></script>
 </head>
 <body>
 <header><span class="imprint">潮彩作品集</span><a href="https://github.com/kaxic/shiosai-tide-journal">GitHub ↗</a></header>
 <main>
   <section id="stage" aria-label="ゲーム画面">
-    <canvas id="game" width="1280" height="720" tabindex="0" aria-label="潮路の釣り手帖のゲーム画面"></canvas>
+    <canvas id="game" data-game="Tides" width="1280" height="720" tabindex="0" aria-label="潮路の釣り手帖のゲーム画面"></canvas>
     <div id="cover">
-      <div class="titleblock"><p class="genre">釣りと魚類図鑑</p><h1>潮路の釣り手帖</h1><p class="intro">朝の源流から、白波の立つ外礁まで。
-竿を手に、四つの水辺で二十四種の魚に出会う旅へ。</p>
+      <div class="titleblock"><p class="genre">釣りと魚類図鑑</p><h1>潮路の釣り手帖</h1><p class="intro">朝霧の渓谷から黒潮の測候台まで。
+八つの水域で四十八種の魚に出会う、海辺の調査旅行。</p>
         <button id="launch">ゲームを開始 <span aria-hidden="true">›</span></button>
         <div id="status" role="status" aria-live="polite"></div><progress id="meter" max="1" value="0" hidden></progress>
       </div>

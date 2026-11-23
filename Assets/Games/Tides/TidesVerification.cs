@@ -54,7 +54,7 @@ public static class TidesVerification
             Check(w.Sell()==reserve&&w.OrderCount==Math.Min(count,order.quantity),"依頼魚を確保して余剰分を売る");
             Check(w.Deliver()&&w.S.coins==before+reserve+order.reward,"納品の原子性 "+order.id);
         }
-        Check(w.S.graduated&&w.RequestIndex==c.orders.Length&&w.CanTravel(3),"四水域調査の完了");
+        Check(w.S.graduated&&w.RequestIndex==c.orders.Length&&w.CanTravel(TidesGame.SiteNames.Length-1),"四水域調査の完了");
         return w;
     }
     static void Timing(TidesCatalog c)
@@ -104,12 +104,17 @@ public static class TidesVerification
     public static TidesFishery Run(TidesCatalog c)
     {
         Timing(c);var w=Complete(c);
+        var legacy=JsonUtility.FromJson<TidesRecord>(JsonUtility.ToJson(w.S));
+        legacy.delivered.RemoveRange(8,legacy.delivered.Count-8);
+        legacy.graduated=true;legacy.site=3;legacy.permits=15;
+        var followOn=new TidesFishery(c,legacy);
+        Check(followOn.RequestIndex==8 && followOn.CanTravel(4) && !followOn.S.graduated,"従来の最終便から峡谷調査へ続く");
         foreach(var f in c.species)
         {
             int i=c.Index(f.id);Catch(w,i);
             var record=w.Finding(i);Check(record.count>0&&record.bestLength>=f.minCm-.06f&&record.bestLength<=f.maxCm+.06f&&record.bestWeight>0,"寸法台帳 "+f.id);
         }
-        Check(w.Discovered==c.species.Length&&w.S.graduated,"全魚種と大物4種の図鑑");
+        Check(w.Discovered==c.species.Length&&w.S.graduated,"全魚種と各地の大物の図鑑");
         int favorite=c.Index("hiramasa");Check(w.Favorite(favorite)&&Reload(w).Finding(favorite).favorite,"お気に入りの保存");
         for(int type=0;type<3;type++)while(w.Cost(type)>0&&w.S.coins>=w.Cost(type))Check(w.Upgrade(type),"成長");
         for(int j=0;j<2;j++)
@@ -119,7 +124,7 @@ public static class TidesVerification
         }
         var restored=Reload(w);Check(restored.Total==w.Total&&restored.S.basket.Count==w.S.basket.Count&&restored.S.repeats==2&&restored.Order.fishId==w.Order.fishId,"魚籠・巡回の再開");
         Revision(c,w);
-        Debug.Log("TIDES_RULES_OK all species "+c.species.Length+", story "+c.orders.Length+", 2 repeat surveys, 4 waters/trophies, line tension/slack, hook timing, save migration");
+        Debug.Log("TIDES_RULES_OK all species "+c.species.Length+", story "+c.orders.Length+", 2 repeat surveys, 8 waters/trophies, line tension/slack, hook timing, save migration");
         return w;
     }
 }

@@ -7,11 +7,11 @@ using UnityEngine;
 public sealed class TidesFieldWindow : EditorWindow
 {
     const string DataPath = "Assets/Games/Tides/Resources/Tides/Fishery.json";
-    static readonly string[] Sites = { "せせらぎの源流", "銀鏡の湖", "潮見の漁港", "白帆の外礁" };
+    static readonly string[] Sites = TidesGame.SiteNames;
     static readonly string[] Times = { "朝", "昼", "夕", "夜" };
     static readonly string[] Weathers = { "晴", "曇", "雨" };
     static readonly string[] Currents = { "下げ潮", "上げ潮" };
-    static readonly string[] Baits = { "川虫", "練り餌", "小魚", "エビ" };
+    static readonly string[] Baits = TidesGame.BaitNames;
     TidesCatalog catalog;
     string baseline, error;
     int tab, selected;

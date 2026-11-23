@@ -29,6 +29,7 @@ public sealed class TidesFishery
     public readonly TidesRecord S;
     public readonly TidesCatalog C;
     readonly Dictionary<string,TidesFinding> findings=new Dictionary<string,TidesFinding>(StringComparer.Ordinal);
+    public static readonly int[] PermitOrders={0,1,3,5,8,10,12,14};
     public int RequestIndex {get;private set;}
     public int Total {get;private set;}
     public int Discovered {get;private set;}
@@ -43,9 +44,9 @@ public sealed class TidesFishery
     public TidesFishery(TidesCatalog catalog,TidesRecord record=null)
     {
         C=catalog;S=record??new TidesRecord();
-        S.version=1;S.day=Mathf.Clamp(S.day,1,999999);S.slot=Mathf.Clamp(S.slot,0,3);S.site=Mathf.Clamp(S.site,0,3);
+        S.version=1;S.day=Mathf.Clamp(S.day,1,999999);S.slot=Mathf.Clamp(S.slot,0,3);S.site=Mathf.Clamp(S.site,0,PermitOrders.Length-1);
         S.permits|=1|(1<<S.site);S.coins=Math.Max(0,S.coins);S.repeats=Math.Max(0,S.repeats);S.power=Mathf.Clamp01(S.power);
-        S.aim=Mathf.Clamp(S.aim,-45,45);S.bait=Mathf.Clamp(S.bait,0,3);
+        S.aim=Mathf.Clamp(S.aim,-45,45);S.bait=Mathf.Clamp(S.bait,0,TidesGame.BaitNames.Length-1);
         if(S.gear==null)S.gear=new int[3];if(S.gear.Length<3)Array.Resize(ref S.gear,3);
         for(int i=0;i<3;i++)S.gear[i]=Mathf.Clamp(S.gear[i],0,3);
         S.findings??=new List<TidesFinding>();S.delivered??=new List<string>();S.basket??=new List<TidesLanding>();
@@ -66,13 +67,13 @@ public sealed class TidesFishery
             if(S.delivered.Contains(C.orders[i].id))complete++;
             else if(RequestIndex==C.orders.Length)RequestIndex=i;
         }
-        if(complete>=1)S.permits|=2;if(complete>=3)S.permits|=4;if(complete>=5)S.permits|=8;
-        if(RequestIndex<C.orders.Length){Order=C.orders[RequestIndex];return;}
-        S.graduated=true;S.permits=15;
+        for(int i=0;i<PermitOrders.Length;i++)if(complete>=PermitOrders[i])S.permits|=1<<i;
+        if(RequestIndex<C.orders.Length){S.graduated=false;Order=C.orders[RequestIndex];return;}
+        S.graduated=true;S.permits=(1<<PermitOrders.Length)-1;
         int index=C.Index(S.repeatFish);
         if(index<0){index=(int)(((long)S.repeats*7+5)%C.species.Length);S.repeatFish=C.species[index].id;}
         var s=C.species[index];
-        Order=new TidesOrder{id="tour-"+S.repeats,name="沿岸巡回・"+s.name,client="四水域の観測所",
+        Order=new TidesOrder{id="tour-"+S.repeats,name="沿岸巡回・"+s.name,client="沿岸観測所",
             note=s.name+"を魚籠に確保し、観測記録を更新しよう。",fishId=s.id,quantity=s.legendary?1:1+(S.repeats%3==2?1:0),reward=s.price*2+80};
     }
     public TidesFinding Finding(int i)=>i>=0&&i<C.species.Length&&findings.TryGetValue(C.species[i].id,out var f)?f:null;
@@ -90,7 +91,7 @@ public sealed class TidesFishery
         if(i<0||i>=C.species.Length)return;
         if(S.tracked!=C.species[i].id){S.tracked=C.species[i].id;S.misses=0;}
     }
-    public bool CanTravel(int i)=>i>=0&&i<4&&(S.permits&(1<<i))!=0;
+    public bool CanTravel(int i)=>i>=0&&i<PermitOrders.Length&&(S.permits&(1<<i))!=0;
     static bool AtShore(TidesMode mode)=>mode==TidesMode.Explore||mode==TidesMode.Travel||mode==TidesMode.Shop||mode==TidesMode.Journal||mode==TidesMode.Requests||mode==TidesMode.Clock;
     public bool Travel(int site)
     {
@@ -114,7 +115,7 @@ public sealed class TidesFishery
         int price=Cost(i);if(!AtShore(S.mode)||price<=0||S.coins<price)return false;
         S.coins-=price;S.gear[i]++;Revision++;return true;
     }
-    public bool Bait(int i){if(!AtShore(S.mode)||i<0||i>3)return false;S.bait=i;return true;}
+    public bool Bait(int i){if(!AtShore(S.mode)||i<0||i>=TidesGame.BaitNames.Length)return false;S.bait=i;return true;}
     public int OrderCount
     {
         get{int n=0;foreach(var f in S.basket)if(f.fishId==Order.fishId)n++;return n;}

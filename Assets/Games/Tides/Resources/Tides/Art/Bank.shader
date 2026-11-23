@@ -1,5 +1,5 @@
 Shader "Tides/Field watercolour" {
- Properties{_Grass("Sedge",2D)="gray"{} _Sand("Shell sand",2D)="gray"{} _Rock("Granite",2D)="gray"{} _Wood("Cedar",2D)="gray"{} _Leaves("Canopy",2D)="gray"{} _LightInk("Sun",Color)=(1,.92,.78,1) _SkyInk("Atmosphere",Color)=(.8,.87,.84,1) _Conditions("Rain, night, dusk",Vector)=(0,0,0,0)}
+ Properties{_Grain("Sea-worn stones and silt",2D)="gray"{} _Grass("Sedge",2D)="gray"{} _Sand("Shell sand",2D)="gray"{} _Rock("Granite",2D)="gray"{} _Wood("Cedar",2D)="gray"{} _Leaves("Canopy",2D)="gray"{} _LightInk("Sun",Color)=(1,.92,.78,1) _SkyInk("Atmosphere",Color)=(.8,.87,.84,1) _Conditions("Rain, night, dusk",Vector)=(0,0,0,0)}
  SubShader{Tags{"RenderType"="Opaque"} Pass{Tags{"LightMode"="ForwardBase"}
  CGPROGRAM
  #pragma target 3.0
@@ -8,7 +8,7 @@ Shader "Tides/Field watercolour" {
  #pragma multi_compile_fwdbase
  #include "UnityCG.cginc"
  #include "AutoLight.cginc"
- sampler2D _Grass,_Sand,_Rock,_Wood,_Leaves;half4 _LightInk,_SkyInk,_Conditions;
+ sampler2D _Grain;sampler2D _Grass,_Sand,_Rock,_Wood,_Leaves;half4 _LightInk,_SkyInk,_Conditions;
  struct a{float4 vertex:POSITION;float3 normal:NORMAL;float4 uv:TEXCOORD0;half4 color:COLOR;};
  struct p{float4 pos:SV_POSITION;float4 uv:TEXCOORD0;float3 world:TEXCOORD1;half3 n:TEXCOORD2;half4 color:COLOR;SHADOW_COORDS(3)};
  p vert(a v){p o;o.pos=UnityObjectToClipPos(v.vertex);o.world=mul(unity_ObjectToWorld,v.vertex).xyz;o.n=UnityObjectToWorldNormal(v.normal);o.uv=v.uv;o.color=v.color;TRANSFER_SHADOW(o);return o;}
@@ -27,6 +27,11 @@ Shader "Tides/Field watercolour" {
  else if(t==7)tex=(sampleInk(_Leaves,uv/2.5)-half3(.44,.57,.25))*.25;
  else if(t==8)tex=(sampleInk(_Rock,uv/.45)-half3(.69,.65,.59))*.092;
  else if(t==10)tex=(sampleInk(_Leaves,uv/10)-half3(.44,.57,.25))*.12;
+ half3 detail=tex2D(_Grain,uv*.83).rgb-half3(.55,.50,.56);
+ if(t==2)tex+=detail.g*.065+detail.r*.092;
+ else if(t==4)tex+=detail.b*.18;
+ else if(t==1||t==7)tex+=detail.g*half3(.052,.085,.038);
+ else if(t==8)tex+=detail.b*.075;
  half3 n=normalize(i.n);float sun=saturate(dot(n,normalize(half3(-.54,.85,-.42))));
  half3 light=lerp(half3(.51,.60,.65),half3(.80,.84,.83),n.y*.5+.5)+sun*lerp(.10,.31,SHADOW_ATTENUATION(i))*half3(1,.94,.81);
  half3 c=(i.color.rgb+tex)*lerp(light,half3(1.12,1.09,1.03),saturate(i.uv.w));

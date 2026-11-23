@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#15272a"><title>潮路の釣り手帖 | 潮彩作品集</title>
-  <link rel="icon" href="icon.png"><link rel="stylesheet" href="player.css">
+  <link rel="icon" href="icon.png"><link rel="stylesheet" href="player.css"><link rel="stylesheet" href="touch.css"><script defer src="touch.js"></script>
 </head>
 <body>
 <header><span class="imprint">潮彩作品集</span><a href="https://github.com/kaxic/shiosai-tide-journal">GitHub ↗</a></header>
 <main>
   <section id="stage" aria-label="ゲーム画面">
-    <canvas id="game" width="1280" height="720" tabindex="0" aria-label="潮路の釣り手帖のゲーム画面"></canvas>
+    <canvas id="game" data-game="Tides" width="1280" height="720" tabindex="0" aria-label="潮路の釣り手帖のゲーム画面"></canvas>
     <div id="cover">
-      <div class="titleblock"><p class="genre">釣りと魚類図鑑</p><h1>潮路の釣り手帖</h1><p class="intro">朝の源流から、白波の立つ外礁まで。
-竿を手に、四つの水辺で二十四種の魚に出会う旅へ。</p>
+      <div class="titleblock"><p class="genre">釣りと魚類図鑑</p><h1>潮路の釣り手帖</h1><p class="intro">朝霧の渓谷から黒潮の測候台まで。
+八つの水域で四十八種の魚に出会う、海辺の調査旅行。</p>
         <button id="launch">ゲームを開始 <span aria-hidden="true">›</span></button>
         <div id="status" role="status" aria-live="polite"></div><progress id="meter" max="1" value="0" hidden></progress>
       </div>
@@ -36,7 +36,7 @@ const meter=document.getElementById('meter');
 let instance=null;
 const build='Build/';
 const config={
-  dataUrl:build+'Browser.data.unityweb',frameworkUrl:build+'Browser.framework.js.unityweb',codeUrl:build+'Browser.wasm.unityweb',
+  dataUrl:build+'bf1ed152f5acbdb5061887699a6153a7.data.unityweb',frameworkUrl:build+'16cfd81b13a5743d3d73becf4750e1fa.framework.js.unityweb',codeUrl:build+'8e81822670fafd089ff3c7c8b20b4949.wasm.unityweb',
   streamingAssetsUrl:'StreamingAssets',companyName:'Shiosai Works',productName:'The Tide Anglers Journal',productVersion:'1.0',
   devicePixelRatio:Math.min(1.5,window.devicePixelRatio||1),
   showBanner:function(message,type){ if(type==='error'){statusLine.textContent='読み込みに失敗しました。ページを再読み込みしてください。';console.error(message);} }
@@ -44,7 +44,7 @@ const config={
 async function startGame(){
   launchButton.disabled=true; statusLine.textContent='ゲームを読み込んでいます…';meter.hidden=false;
   try{
-    if(typeof createUnityInstance!=='function')await new Promise((resolve,reject)=>{const s=document.createElement('script'); s.src=build+'Browser.loader.js';s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});
+    if(typeof createUnityInstance!=='function')await new Promise((resolve,reject)=>{const s=document.createElement('script'); s.src=build+'a1e8376f777c92faceba076bf7e7a599.loader.js';s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});
     instance=await createUnityInstance(canvas,config,value=>{meter.value=value;statusLine.textContent='読み込み中　'+Math.round(100*value)+'%';});
     cover.hidden=true;canvas.focus();document.body.classList.add('playing');
   }catch(e){statusLine.textContent='ゲームを開始できませんでした。WebGL 2に対応したブラウザーで再試行してください。';meter.hidden=true;launchButton.disabled=false;console.error(e);}

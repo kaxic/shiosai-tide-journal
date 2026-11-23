@@ -5,10 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(TidesCatchPrint))]
 public sealed class TidesGame : StudioGame
 {
-    public static readonly string[] SiteNames={"せせらぎの源流","銀鏡の湖","潮見の漁港","白帆の外礁"};
-    public static readonly string[] SiteNotes={"石の間を縫う澄んだ流れ。まずは浅場の小魚から。","静かな水面とアシの岸。夜明けには沖の影も。","河口と海の境。岸壁の足元と流れの境が狙い目。","外洋の潮目に面した岩礁。強く走る魚が待つ。"};
+    public static readonly string[] SiteNames={"せせらぎの源流","銀鏡の湖","潮見の漁港","白帆の外礁","朱橋の峡谷","葦波の干潟","翡翠の環礁","黒潮の測候台"};
+    public static readonly string[] SiteNotes={"石の間を縫う澄んだ流れ。まずは浅場の小魚から。","静かな水面とアシの岸。夜明けには沖の影も。","河口と海の境。岸壁の足元と流れの境が狙い目。","外洋の潮目に面した岩礁。強く走る魚が待つ。","朱塗りの橋の下、深い淵を探る。","干潟に伸びる観察路。浅い底と河口の回遊魚が集う。","白い珊瑚砂と透き通った礁湖。","紺碧の沖合。潮の境に巨魚が走る。"};
     public static readonly string[] TimeNames={"朝","昼","夕","夜"},WeatherNames={"晴れ","曇り","雨"},TideNames={"下げ潮","上げ潮"};
-    public static readonly string[] BaitNames={"川虫","練り餌","小魚","エビ"},GearNames={"竿","リール","道糸"};
+    public static readonly string[] BaitNames={"川虫","練り餌","小魚","エビ","毛鉤","イソメ","貝むき身","メタルジグ"},GearNames={"竿","リール","道糸"};
+    public static int SellChoice=>3+BaitNames.Length;
     static readonly string[] painted={"oikawa","ayu","yamame","iwana","ugui","sakuramasu","wakasagi","funa","tanago","koi","nijimasu","biwamasu","haze","aji","mebaru","kurodai","suzuki","akame","saba","kasago","kawahagi","madai","kanpachi","hiramasa"};
     TidesCatalog catalog;TidesFishery fishery;TidesHud hud;TidesView view;
     bool mouseReel;float saveIn;int epoch;
@@ -80,7 +81,7 @@ public sealed class TidesGame : StudioGame
     public int UpgradeCost(int i)=>fishery.Cost(i);
     public bool CanUpgrade(int i)=>UpgradeCost(i)>0&&Coins>=UpgradeCost(i);
     public bool CanTravel(int i)=>fishery.CanTravel(i);
-    public string TravelRule(int i)=>CanTravel(i)?"渡航できます":$"調査依頼を {(i==1?1:i==2?3:5)} 件達成して開通";
+    public string TravelRule(int i)=>CanTravel(i)?"渡航できます":$"調査依頼を {TidesFishery.PermitOrders[i]} 件達成して開通";
     public int SpeciesCaught(int i)=>fishery.Finding(i)?.count??0;
     public float BestLength(int i)=>fishery.Finding(i)?.bestLength??0;
     public float BestWeight(int i)=>fishery.Finding(i)?.bestWeight??0;
@@ -133,15 +134,15 @@ public sealed class TidesGame : StudioGame
         if(Menu||Mode==TidesMode.Aim||Mode==TidesMode.Catch||Mode==TidesMode.Escape){Back();return true;}
         mouseReel=false;return false;
     }
-    int Options()=>Mode==TidesMode.Journal?Fish.Length:Mode==TidesMode.Requests?Orders.Length+(FinishedSurvey?1:0):Mode==TidesMode.Shop?8:4;
+    int Options()=>Mode==TidesMode.Journal?Fish.Length:Mode==TidesMode.Requests?Orders.Length+(FinishedSurvey?1:0):Mode==TidesMode.Travel?SiteNames.Length:Mode==TidesMode.Shop?SellChoice+1:4;
     public void Highlight(int i){Selection=Mathf.Clamp(i,0,Options()-1);}
     public void Travel(int i){if(fishery.Travel(i)){Say(SiteNames[i]+" に到着",1);SaveCheckpoint();}else Say(TravelRule(i));}
     public void SetTime(int i){if(fishery.Time(i)){Say($"第{Day}日　{TimeNames[TimeSlot]}・{WeatherNames[Weather]}・{TideNames[Tide]}",1);SaveCheckpoint();}}
     public void ShopAction(int i)
     {
         if(Mode!=TidesMode.Shop&&Mode!=TidesMode.Explore)return;
-        if(i==7){SellAll();return;}
-        if(i<0||i>6)return;
+        if(i==SellChoice){SellAll();return;}
+        if(i<0||i>=SellChoice)return;
         if(i<3)
         {
             if(!fishery.Upgrade(i)){Say(UpgradeCost(i)==0?"この道具は最高段階です。":"魚の販売や依頼で資金を貯めましょう。");return;}
@@ -201,7 +202,7 @@ public sealed class TidesGame : StudioGame
         if(Press(KeyCode.J)){ToggleMenu(TidesMode.Requests);return;}
         if(Menu)
         {
-            int width=Mode==TidesMode.Journal?4:1;
+            int width=Mode==TidesMode.Journal||Mode==TidesMode.Travel?4:1;
             int d=(Press(KeyCode.RightArrow)?1:0)-(Press(KeyCode.LeftArrow)?1:0)+(Press(KeyCode.DownArrow)?width:0)-(Press(KeyCode.UpArrow)?width:0);
             if(d!=0)Highlight(Selection+d);
             if(Press(KeyCode.F)&&Mode==TidesMode.Journal)ToggleFavorite(Selection);

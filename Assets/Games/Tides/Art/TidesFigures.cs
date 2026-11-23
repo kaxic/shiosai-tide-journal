@@ -6,11 +6,14 @@ using static TidesMesh.Finish;
 internal static class TidesFigures
 {
     static readonly string[] Names={"oikawa","ayu","yamame","iwana","ugui","sakuramasu","wakasagi","funa","tanago","koi","nijimasu","biwamasu",
-        "haze","aji","mebaru","kurodai","suzuki","akame","saba","kasago","kawahagi","madai","kanpachi","hiramasa"};
+        "haze","aji","mebaru","kurodai","suzuki","akame","saba","kasago","kawahagi","madai","kanpachi","hiramasa",
+        "kawamutsu","numamutsu","mugitsuku","shimadojo","kajika","ito","shirauo","sayori","bora","amimehagi","konoshiro","hoshigarei","chouchouuo","budai","oyabiccha","nizadai","akahata","rouninaji","kamasu","tobiuo","shiira","katsuo","binnaga","kurokajiki"};
     static readonly string[] Backs={"73949B","84937D","87876E","788376","758781","939889","9DA8A5","85856C","8BA8A2","9A876B","8E9581","83918D",
-        "8C816B","729D9E","9A7764","797F7B","829792","7A8C83","658994","AB745A","9E967A","BE8F84","7E9D95","7D9D90"};
+        "8C816B","729D9E","9A7764","797F7B","829792","7A8C83","658994","AB745A","9E967A","BE8F84","7E9D95","7D9D90",
+        "648F89","848785","AA9158","93794B","887D67","88786B","C5D3CB","8CAEB0","779A8B","8A9A64","6F99A9","978B71","CDAC47","3B8A86","4D859E","638878","AA5D4D","557F93","678D8D","577D9F","3A9A95","4E7294","536B91","38567F"};
     static readonly string[] Flanks={"B9AAA8","CCD3B3","B7B59C","B8B998","C7BBB0","C7B4AC","D0D6C7","B9AA87","B5C2C7","C2AA82","C3ADA5","C1B59E",
-        "B8AC8F","BDCEB5","B39778","B2B5AB","C2C6AF","B2B7A2","ACBBC1","C89379","C6B798","DCB6A4","B8C7A0","BECAA5"};
+        "B8AC8F","BDCEB5","B39778","B2B5AB","C2C6AF","B2B7A2","ACBBC1","C89379","C6B798","DCB6A4","B8C7A0","BECAA5",
+        "BFB795","BEC9AF","CDB986","DED2A5","B0A58A","BBAD90","E0E6D7","CED9D2","C0CABC","BAC994","BCD7D2","BDAD8F","ECDC6B","75B9AA","C8BF81","9CB89D","DF9472","9CBAC2","CFD5BD","ACC5C6","D7C55F","A2B5B8","ACC1C3","7496AF"};
     public static void Angler(TidesMesh m,int part)
     {
         void o(Vector3 p,Vector3 r,string c,Finish f=Cloth,int seed=4){m.Ink(c,f);m.Blob(p,r,seed,10);}
@@ -47,10 +50,13 @@ internal static class TidesFigures
     public static int Kind(string key){int k=Array.IndexOf(Names,key);return k<0?0:k;}
     public static void Fish(TidesMesh m,int k)
     {
-        bool deep=k==7||k==8||k==14||k==15||k==19||k==20||k==21;
-        bool salmon=k==2||k==3||k==5||k==10||k==11;
+        bool deep=k==35||k==36||k==37||k==38||k==39||k==40||k==41||k==7||k==8||k==14||k==15||k==19||k==20||k==21;
+        bool salmon=k==29||k==2||k==3||k==5||k==10||k==11;
         bool fork=k==13||k==18||k>=21;
-        bool bottom=k==12||k==19;float h=deep?.304f:bottom?.173f:.205f;float w=deep?.128f:.149f;
+        bool bottom=k==27||k==28||k==35||k==12||k==19;float h=deep?.304f:bottom?.173f:.205f;float w=deep?.128f:.149f;
+        if(k==27||k==30||k==31||k==42) {h*=.59f;w*=.67f;}
+        if(k==35){h*=.35f;w*=2.10f;}
+        if(k==44){h*=1.33f;}
         float[] x={-.56f,-.42f,-.23f,.035f,.28f,.456f,.54f};
         float[] section={.19f,.46f,.85f,1f,.87f,.52f,.13f};const int n=12;
         var rings=new Vector3[x.Length,n];
@@ -65,6 +71,23 @@ internal static class TidesFigures
         void Fin(Vector3 a,Vector3 b,Vector3 c,string shade){
             m.Ink(shade,Finish.Fish);var norm=Vector3.Cross(b-a,c-a).normalized;
             m.Tri(a,b,c,norm);m.Tri(a,c,b,-norm);}
+        if(k==31||k==47){
+            m.Ink(Backs[k],Finish.Fish);
+            m.Tube(At(.50f,-.023f,0),At(k==47?.97f:.78f,-.020f,0),.042f,.003f,8);
+        }
+        if(k==43||k==46)for(int side=-1;side<=1;side+=2)
+            Fin(At(.19f,0,side*w),At(-.45f,-.08f,side*(k==43?.64f:.34f)),At(-.28f,-.105f,side*w),Flanks[k]);
+        if(k==35)for(int i=0;i<14;i++){
+            float xPos=-.45f+i*.063f,spread=Mathf.Sin(i*Mathf.PI/13);
+            for(int side=-1;side<=1;side+=2) Fin(At(xPos,.015f,side*w*spread*.8f),At(xPos-.03f,0,side*w*spread*1.65f),At(xPos+.07f,.02f,side*w*spread*.8f),Backs[k]);
+        }
+        if(k>=24&&k%3!=0)for(int i=0;i<5;i++){
+            float xPos=-.27f+i*.11f;float spread=Mathf.Sqrt(1-Mathf.Pow(xPos/.55f,2));
+            for(int side=-1;side<=1;side+=2){
+                m.Ink(k==36||k==38?"5E686E":Backs[k],Finish.Fish);
+                m.Blob(At(xPos,.01f,side*w*spread),At(.018f,k%2==0?h*.65f:.035f,.009f),i,6);
+            }
+        }
         string fin=k==21||k==19?"C78F79":k==13||k==22||k==23?"B9AF70":Backs[k];
         float tail=fork?.24f:.172f;Fin(At(-.52f,.044f,0),At(-.81f,tail,.02f),At(-.71f,.012f,0),fin);
         Fin(At(-.52f,.044f,0),At(-.71f,.012f,0),At(-.52f,-.045f,0),fin);

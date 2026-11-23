@@ -5,16 +5,16 @@ public sealed partial class TidesHud
 {
     void Travel()
     {
-        Rect p=Book(922,414,"WATERSIDE ATLAS","四つの釣り場");
+        Rect p=Book(960,548,"WATERSIDE ATLAS","八つの釣り場");
         float x=p.x+20,y=p.y+86,width=(p.width-61)/4;
         for(int i=0;i<TidesGame.SiteNames.Length;i++)
         {
-            Rect r=new Rect(x+i*(width+7),y,width,232);
+            Rect r=new Rect(x+(i%4)*(width+7),y+(i/4)*181,width,174);
             Row(r,game.Selection==i);
-            WaterPicture(new Rect(r.x+5,r.y+5,width-10,101),i);
-            Text(TidesGame.SiteNames[i],r.x+8,r.y+111,width-16,32,17,Ink,true);
-            Text(TidesGame.SiteNotes[i],r.x+9,r.y+147,width-18,49,14,Reed);
-            Text(i==game.Site?"現在地":game.CanTravel(i)?"渡航できます":"未開放",r.x+9,r.y+201,width-18,24,14,game.CanTravel(i)?Water:Ember);
+            WaterPicture(new Rect(r.x+5,r.y+5,width-10,68),i);
+            Text(TidesGame.SiteNames[i],r.x+8,r.y+72,width-16,32,17,Ink,true);
+            Text(TidesGame.SiteNotes[i],r.x+9,r.y+105,width-18,40,14,Reed);
+            Text(i==game.Site?"現在地":game.CanTravel(i)?"渡航できます":"未開放",r.x+9,r.y+146,width-18,24,14,game.CanTravel(i)?Water:Ember);
             if(Hit(r))game.Highlight(i);
         }
         int selected=Mathf.Clamp(game.Selection,0,TidesGame.SiteNames.Length-1);
@@ -44,7 +44,7 @@ public sealed partial class TidesHud
         Rect p=Book(833,467,"THE TACKLE SHOP","水辺の釣具店");
         float x=p.x+20,y=p.y+83,half=(p.width-52)/2,rx=x+half+12;
         Text("道具を整える",x,y,half,30,19,Ink,true);
-        Text("使う餌",rx,y,half,30,19,Ink,true);
+        Text("餌とルアー",rx,y,half,30,19,Ink,true);
         for(int i=0;i<3;i++)
         {
             Rect r=new Rect(x,y+38+i*56,half,51);
@@ -54,19 +54,19 @@ public sealed partial class TidesHud
             Text(game.UpgradeCost(i)>0?$"{game.UpgradeCost(i)} 円":"最高段階",r.x+half*.52f,r.y+5,half*.46f-7,41,15,Water,align:TextAnchor.MiddleRight);
             if(Hit(r))game.Highlight(i);
         }
-        for(int i=0;i<4;i++)
+        for(int i=0;i<TidesGame.BaitNames.Length;i++)
         {
-            float bw=(half-6)/2;
-            Rect r=new Rect(rx+i%2*(bw+6),y+38+i/2*59,bw,53);
+            float bw=(half-18)/4;
+            Rect r=new Rect(rx+i%4*(bw+6),y+38+i/4*59,bw,53);
             Row(r,game.Selection==3+i);
             Text(TidesGame.BaitNames[i],r.x+7,r.y+1,bw-14,28,15,Ink);
             Text(game.ActiveBait==i?"使用中":"持ち替える",r.x+8,r.y+29,bw-16,21,13,game.ActiveBait==i?Ember:Reed);
             if(Hit(r))game.Highlight(i+3);
         }
         Rect sell=new Rect(rx,y+157,half,49);
-        Row(sell,game.Selection==7);
+        Row(sell,game.Selection==TidesGame.SellChoice);
         Text($"魚籠を売却　{game.BagValue} 円",sell.x+8,sell.y+2,sell.width-16,sell.height-4,16,Water);
-        if(Hit(sell))game.Highlight(7);
+        if(Hit(sell))game.Highlight(TidesGame.SellChoice);
         int selected=game.Selection;
         string detail;
         if(selected<3)
@@ -74,15 +74,15 @@ public sealed partial class TidesHud
             string[] notes={"大物とのやり取りが安定します。","岸まで巻き寄せる力を高めます。","糸の張りの変化を抑えます。"};
             detail=notes[selected];
         }
-        else detail=selected==7?"今の依頼に必要な魚は魚籠に取り置きします。":"餌は無料で何度でも持ち替えられます。";
+        else detail=selected==TidesGame.SellChoice?"今の依頼に必要な魚は魚籠に取り置きします。":"餌は無料で何度でも持ち替えられます。";
         Line(x,y+224,p.width-40);
         Text(detail,x+1,y+238,p.width-42,42,15,Reed);
         Text($"所持金 {game.Coins} 円　／　魚籠 {game.BagCount} 尾",x,p.yMax-56,p.width-260,37,15,Ink);
-        string verb=selected<3?"この道具を強化":selected==7?"取り置き以外を売る":"この餌を使う";
-        bool enabled=selected<3?game.CanUpgrade(selected):selected!=7||game.BagValue>0;
+        string verb=selected<3?"この道具を強化":selected==TidesGame.SellChoice?"取り置き以外を売る":"この餌を使う";
+        bool enabled=selected<3?game.CanUpgrade(selected):selected!=TidesGame.SellChoice||game.BagValue>0;
         if(Button(new Rect(p.xMax-218,p.yMax-57,198,38),verb,enabled))
         {
-            if(selected==7)game.SellAll();else game.ShopAction(selected);
+            if(selected==TidesGame.SellChoice)game.SellAll();else game.ShopAction(selected);
         }
     }
 
@@ -131,9 +131,16 @@ public sealed partial class TidesHud
         else Text($"巡回達成　{game.RepeatCount} 件",x,p.yMax-57,left,36,14,Reed);
     }
 
+    static readonly Texture2D[] newWaters=new Texture2D[4];
     void WaterPicture(Rect frame,int site)
     {
         Fill(frame,Page);
+        if(site>=4){
+            var plate=newWaters[site-4];
+            if(!plate){plate=Resources.Load<Texture2D>("Tides/Waters/Water"+site);newWaters[site-4]=plate;}
+            if(plate)GUI.DrawTexture(frame,plate,ScaleMode.ScaleAndCrop);
+            return;
+        }
         var atlas=game.skin.illustrations;
         if(!atlas)return;
         float aspect=atlas.width/(float)atlas.height;

@@ -18,7 +18,61 @@ internal sealed class TidesScenery
     public void Build()
     {
         GroundBank();Dock();SupplyTable();TravelSign();Coastline();
-        switch(site){case 0:Headwaters();break;case 1:Lake();break;case 2:Harbour();break;default:Reef();break;}
+        switch(site){case 0:Headwaters();break;case 1:Lake();break;case 2:Harbour();break;case 3:Reef();break;case 4:Gorge();break;case 5:Estuary();break;case 6:Lagoon();break;default:OpenSea();break;}
+    }
+    void Gorge()
+    {
+        Ridge(56,10,4,"9CAFA4"); Ridge(39,8,19,"839D8C");
+        for(int side=-1;side<=1;side+=2)for(int n=0;n<13;n++){
+            float x=side*(10+n*.15f),z=5+n*1.49f,y=1+Mathf.Sin(n*.99f)*.8f;
+            Blob(At(x,y,z),At(3.7f,2.5f,2.4f),n%2==0?"808C83":"A0A296",Rock,n);
+            if(n%3==0)Tree(x,y+1.8f,z,.86f,n);
+        }
+        for(int i=-9;i<=9;i++){
+            float y=2.2f+(1-i*i/90f)*.98f; B(i,y,17,1.07f,.36f,2.0f,"A24D39",Painted);
+            foreach(float z in new[]{16.10f,17.90f}){
+                B(i,y+.47f,z,.12f,.91f,.12f,"A34736",Painted);
+                if(i<9)Rail(At(i,y+.92f,z),At(i+1,3.12f+(1-(i+1)*(i+1)/90f)*.98f,z),.12f,.12f,"C96A4C",Painted);
+            }
+        }
+    }
+    void Estuary()
+    {
+        Ridge(54,3,7,"ACB8A5");
+        for(int i=0;i<21;i++){
+            float x=-15+i*1.55f,z=13+3*Mathf.Sin(i*.48f);
+            Blob(At(x,-.44f,z),At(2.7f,.72f,1.8f),"A9AB80",Sand,i);
+            Reeds(x,z,.99f,i,15);
+        }
+        for(int i=0;i<26;i++){
+            float x=-10+i*.55f,z=9+i*.09f; B(x,.62f,z,.53f,.14f,1.15f,"AB8C64",Wood);
+            if(i%4==0){Pole(At(x,-1,z-.50f),At(x,1.31f,z-.50f),.08f,.078f,"887960");Rail(At(x,1.22f,z-.5f),At(x+2.20f,1.22f,z-.14f),.055f,.065f,"A39776");}
+        }
+        for(int j=0;j<5;j++){float x=-3+j*1.3f,z=8+Mathf.Sin(j);Pole(At(x,0,z),At(x,.42f,z),.018f,.014f,"765E4B");Blob(At(x,.49f,z),At(.22f,.14f,.13f),"E9E5CB",Painted,j);Pole(At(x+.1f,.52f,z),At(x+.22f,.82f,z),.049f,.032f,"EFEAD7");}
+    }
+    void Lagoon()
+    {
+        for(int n=0;n<13;n++){float x=10+n*.68f,z=10+n*.93f;
+            Blob(At(x,-.53f,z),At(4.9f,.95f,2.7f),"E4D3A7",Sand,n);
+            if(n%3!=0)continue;
+            Vector3 crown=At(x-.35f,3.07f,z);
+            Pole(At(x,.18f,z),crown,.26f,.12f,"A58D69");
+            for(int k=0;k<9;k++){Ink(k%2==0?"789563":"91AE71",Foliage);m.Leaf(crown,2,.28f,k*40+13,-.12f);}
+        }
+        for(int n=0;n<21;n++){float x=-11+n*.46f,z=4+Mathf.Sin(n*.58f)*1.9f;Vector3 basePoint=At(x,-.18f,z);
+            for(int k=0;k<4;k++)Pole(basePoint,basePoint+At(Mathf.Sin(k*2.1f)*.30f,.26f+(k%3)*.21f,Mathf.Cos(k*2.1f)*.26f),.067f,.051f,n%2==0?"C98E7A":"C5AC9B",Rock);}
+    }
+    void OpenSea()
+    {
+        Blob(At(8,-.8f,20),At(5,2,4),"7B8986",Rock,9);
+        B(8,1.48f,20,4,.25f,3,"879493",Rock);
+        for(int s=-1;s<=1;s+=2)for(int k=-1;k<=1;k+=2){
+            Pole(At(8+s*1.4f,1.51f,20+k),At(8+s*.68f,5.75f,20+k*.62f),.13f,.10f,"B76A50",Painted);
+            Rail(At(8+s*1.26f,2.2f,20+k),At(8-s*.93f,4.4f,20+k*.7f),.09f,.10f,"B68057",Painted);}
+        B(8,5.78f,20,2.35f,.22f,2.3f,"AA624E",Painted);
+        B(8,6.39f,20,1.16f,1.1f,1.13f,"EDD39A",Painted);
+        B(8,7.04f,20,1.61f,.18f,1.57f,"8D5E51",Painted);
+        Buoy(-6,10,0);Buoy(-9,19,2);Boat(-1,28,.80f,13,true);
     }
     void GroundBank()
     {

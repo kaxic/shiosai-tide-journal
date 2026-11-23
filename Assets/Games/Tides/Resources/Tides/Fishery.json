@@ -23,7 +23,31 @@
     {"id":"kawahagi","name":"カワハギ","note":"菱形の薄い体と小さな口。砂地で餌を啄む。","site":3,"bait":3,"timeMask":3,"tideMask":3,"weatherMask":7,"minCast":0.19,"maxCast":0.68,"minCm":15,"maxCm":33,"price":79,"fight":0.97,"bodyFactor":0.018,"legendary":false,"adaptable":false},
     {"id":"madai","name":"マダイ","note":"青い点が散る桜色の魚。日が傾く潮目で餌を探す。","site":3,"bait":3,"timeMask":7,"tideMask":3,"weatherMask":7,"minCast":0.46,"maxCast":0.91,"minCm":27,"maxCm":73,"price":107,"fight":1.2,"bodyFactor":0.017,"legendary":false,"adaptable":false},
     {"id":"kanpachi","name":"カンパチ","note":"眼を横切る帯が特徴。沖で小魚を追う強い泳者。","site":3,"bait":2,"timeMask":7,"tideMask":2,"weatherMask":7,"minCast":0.54,"maxCast":1,"minCm":42,"maxCm":97,"price":130,"fight":1.32,"bodyFactor":0.013,"legendary":false,"adaptable":false},
-    {"id":"hiramasa","name":"ヒラマサ","note":"黄金の側線をもつ外礁の主。晴れ間の上げ潮へ。","site":3,"bait":2,"timeMask":5,"tideMask":2,"weatherMask":3,"minCast":0.72,"maxCast":1,"minCm":80,"maxCm":153,"price":320,"fight":1.65,"bodyFactor":0.012,"legendary":true,"adaptable":false}
+    {"id":"hiramasa","name":"ヒラマサ","note":"黄金の側線をもつ外礁の主。晴れ間の上げ潮へ。","site":3,"bait":2,"timeMask":5,"tideMask":2,"weatherMask":3,"minCast":0.72,"maxCast":1,"minCm":80,"maxCm":153,"price":320,"fight":1.65,"bodyFactor":0.012,"legendary":true,"adaptable":false},
+    {"id":"kawamutsu","name":"カワムツ","note":"流れの縁で虫を待つ、青みのある小魚。","site":4,"bait":0,"timeMask":15,"tideMask":3,"weatherMask":7,"minCast":0,"maxCast":1,"minCm":10,"maxCm":22,"price":23,"fight":0.7,"bodyFactor":0.011,"legendary":false,"adaptable":true},
+    {"id":"numamutsu","name":"ヌマムツ","note":"穏やかな淵に群れる。朱色のひれが目印。","site":4,"bait":4,"timeMask":7,"tideMask":3,"weatherMask":7,"minCast":0.22,"maxCast":0.69,"minCm":10,"maxCm":23,"price":40,"fight":0.83,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"mugitsuku","name":"ムギツク","note":"金色の体側を伸びる一本の黒線。","site":4,"bait":4,"timeMask":13,"tideMask":1,"weatherMask":7,"minCast":0.35,"maxCast":0.83,"minCm":7,"maxCm":18,"price":57,"fight":0.96,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"shimadojo","name":"シマドジョウ","note":"砂の底をひげで探る細長い魚。","site":4,"bait":0,"timeMask":14,"tideMask":3,"weatherMask":6,"minCast":0.12,"maxCast":0.57,"minCm":7,"maxCm":15,"price":74,"fight":1.09,"bodyFactor":0.004,"legendary":false,"adaptable":false},
+    {"id":"kajika","name":"カジカ","note":"石と石の間でじっと餌を待つ。","site":4,"bait":5,"timeMask":9,"tideMask":2,"weatherMask":7,"minCast":0.54,"maxCast":0.91,"minCm":9,"maxCm":23,"price":91,"fight":1.22,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"ito","name":"イトウ","note":"巨石の陰から流芯へ飛び出す渓の主。","site":4,"bait":7,"timeMask":5,"tideMask":3,"weatherMask":3,"minCast":0.74,"maxCast":1,"minCm":62,"maxCm":137,"price":108,"fight":1.35,"bodyFactor":0.011,"legendary":true,"adaptable":false},
+    {"id":"shirauo","name":"シラウオ","note":"小さく透き通った群れが岸の近くを巡る。","site":5,"bait":0,"timeMask":15,"tideMask":3,"weatherMask":7,"minCast":0,"maxCast":1,"minCm":5,"maxCm":12,"price":28,"fight":0.78,"bodyFactor":0.011,"legendary":false,"adaptable":true},
+    {"id":"sayori","name":"サヨリ","note":"針のような下顎で海面の餌を拾う。","site":5,"bait":5,"timeMask":7,"tideMask":3,"weatherMask":7,"minCast":0.22,"maxCast":0.69,"minCm":18,"maxCm":39,"price":45,"fight":0.91,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"bora","name":"ボラ","note":"干潟の流路を遡る、力の強い回遊魚。","site":5,"bait":1,"timeMask":13,"tideMask":1,"weatherMask":7,"minCast":0.35,"maxCast":0.83,"minCm":34,"maxCm":79,"price":62,"fight":1.04,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"amimehagi","name":"アミメハギ","note":"海草と一緒に揺れる小柄な革肌。","site":5,"bait":6,"timeMask":14,"tideMask":3,"weatherMask":6,"minCast":0.12,"maxCast":0.57,"minCm":5,"maxCm":11,"price":79,"fight":1.17,"bodyFactor":0.004,"legendary":false,"adaptable":false},
+    {"id":"konoshiro","name":"コノシロ","note":"肩の黒点と長い背びれで見分ける。","site":5,"bait":1,"timeMask":9,"tideMask":2,"weatherMask":7,"minCast":0.54,"maxCast":0.91,"minCm":15,"maxCm":31,"price":96,"fight":1.3,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"hoshigarei","name":"ホシガレイ","note":"砂紋に溶け込む斑点模様の大型カレイ。","site":5,"bait":5,"timeMask":5,"tideMask":3,"weatherMask":3,"minCast":0.74,"maxCast":1,"minCm":31,"maxCm":76,"price":113,"fight":1.43,"bodyFactor":0.011,"legendary":true,"adaptable":false},
+    {"id":"chouchouuo","name":"チョウチョウウオ","note":"細かな縞と目を覆う黒帯を持つ。","site":6,"bait":3,"timeMask":15,"tideMask":3,"weatherMask":7,"minCast":0,"maxCast":1,"minCm":8,"maxCm":20,"price":33,"fight":0.86,"bodyFactor":0.011,"legendary":false,"adaptable":true},
+    {"id":"budai","name":"ブダイ","note":"緑の鱗と丈夫なくちばしで礁を巡る。","site":6,"bait":6,"timeMask":7,"tideMask":3,"weatherMask":7,"minCast":0.22,"maxCast":0.69,"minCm":25,"maxCm":66,"price":50,"fight":0.99,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"oyabiccha","name":"オヤビッチャ","note":"藍色の横帯が明るい浅場に映える。","site":6,"bait":0,"timeMask":13,"tideMask":1,"weatherMask":7,"minCast":0.35,"maxCast":0.83,"minCm":7,"maxCm":18,"price":67,"fight":1.12,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"nizadai","name":"ニザダイ","note":"尾の付け根に小さな突起が並ぶ。","site":6,"bait":6,"timeMask":14,"tideMask":3,"weatherMask":6,"minCast":0.12,"maxCast":0.57,"minCm":20,"maxCm":53,"price":84,"fight":1.25,"bodyFactor":0.004,"legendary":false,"adaptable":false},
+    {"id":"akahata","name":"アカハタ","note":"赤い斑紋を岩陰に隠して獲物を待つ。","site":6,"bait":2,"timeMask":9,"tideMask":2,"weatherMask":7,"minCast":0.54,"maxCast":0.91,"minCm":20,"maxCm":52,"price":101,"fight":1.38,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"rouninaji","name":"ロウニンアジ","note":"礁を駆け抜ける青銀色の巨体。","site":6,"bait":7,"timeMask":5,"tideMask":3,"weatherMask":3,"minCast":0.74,"maxCast":1,"minCm":67,"maxCm":145,"price":118,"fight":1.51,"bodyFactor":0.011,"legendary":true,"adaptable":false},
+    {"id":"kamasu","name":"カマス","note":"細い銀の体と鋭い口で小魚を追う。","site":7,"bait":2,"timeMask":15,"tideMask":3,"weatherMask":7,"minCast":0,"maxCast":1,"minCm":21,"maxCm":54,"price":38,"fight":0.94,"bodyFactor":0.011,"legendary":false,"adaptable":true},
+    {"id":"tobiuo","name":"トビウオ","note":"翼のような胸びれを広げる外洋の魚。","site":7,"bait":4,"timeMask":7,"tideMask":3,"weatherMask":7,"minCast":0.22,"maxCast":0.69,"minCm":20,"maxCm":39,"price":55,"fight":1.07,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"shiira","name":"シイラ","note":"青と黄色の体が波間でひらめく。","site":7,"bait":7,"timeMask":13,"tideMask":1,"weatherMask":7,"minCast":0.35,"maxCast":0.83,"minCm":49,"maxCm":125,"price":72,"fight":1.2,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"katsuo","name":"カツオ","note":"腹の縞が特徴。速い流れを好む。","site":7,"bait":7,"timeMask":14,"tideMask":3,"weatherMask":6,"minCast":0.12,"maxCast":0.57,"minCm":36,"maxCm":82,"price":89,"fight":1.33,"bodyFactor":0.004,"legendary":false,"adaptable":false},
+    {"id":"binnaga","name":"ビンナガ","note":"長い胸びれをたたんで潮流を切る。","site":7,"bait":7,"timeMask":9,"tideMask":2,"weatherMask":7,"minCast":0.54,"maxCast":0.91,"minCm":47,"maxCm":123,"price":106,"fight":1.46,"bodyFactor":0.011,"legendary":false,"adaptable":false},
+    {"id":"kurokajiki","name":"クロカジキ","note":"槍のような上顎と深い青を持つ海の主。","site":7,"bait":7,"timeMask":5,"tideMask":3,"weatherMask":3,"minCast":0.74,"maxCast":1,"minCm":108,"maxCm":289,"price":123,"fight":1.59,"bodyFactor":0.011,"legendary":true,"adaptable":false}
   ],
   "orders": [
     {"id":"first_ripple","name":"最初の一尾","client":"川辺の案内人","note":"源流の小魚を一尾見せてほしい。湖への渡しを案内しよう。","fishId":"oikawa","quantity":1,"reward":60},
@@ -33,6 +57,14 @@
     {"id":"harbor_light","name":"港の朝ごはん","client":"港の食堂","note":"桟橋の近くで獲れるマアジを食堂に届けたい。","fishId":"aji","quantity":1,"reward":125},
     {"id":"harbor_runner","name":"夕潮の走者","client":"河口の調査員","note":"スズキを一尾。水面を割る走りを記録したい。","fishId":"suzuki","quantity":1,"reward":150},
     {"id":"reef_pink","name":"桜色の魚拓","client":"海辺の絵師","note":"外礁に棲むマダイの姿を描き留めたい。","fishId":"madai","quantity":1,"reward":170},
-    {"id":"golden_horizon","name":"黄金の航跡","client":"沿岸観測局","note":"ヒラマサの実測値を収め、四水域の調査を締めくくる。","fishId":"hiramasa","quantity":1,"reward":420}
+    {"id":"golden_horizon","name":"黄金の航跡","client":"沿岸観測局","note":"ヒラマサの実測値を収め、四水域の調査を締めくくる。","fishId":"hiramasa","quantity":1,"reward":420},
+    {"id":"gorge","name":"峡谷の水脈","client":"渓谷の案内人","note":"新しい水域の魚を調べ、観測所へ届けよう。","fishId":"kawamutsu","quantity":1,"reward":150},
+    {"id":"gorge_deep","name":"淵の赤い影","client":"橋の番人","note":"新しい水域の魚を調べ、観測所へ届けよう。","fishId":"ito","quantity":1,"reward":164},
+    {"id":"tidal","name":"干潟の潮目","client":"渡り鳥の観測員","note":"新しい水域の魚を調べ、観測所へ届けよう。","fishId":"bora","quantity":1,"reward":178},
+    {"id":"tidal_flat","name":"砂紋の主","client":"干潟の調査員","note":"新しい水域の魚を調べ、観測所へ届けよう。","fishId":"hoshigarei","quantity":1,"reward":192},
+    {"id":"lagoon","name":"珊瑚の縞模様","client":"環礁の潜水士","note":"新しい水域の魚を調べ、観測所へ届けよう。","fishId":"oyabiccha","quantity":1,"reward":206},
+    {"id":"lagoon_deep","name":"礁を渡る巨影","client":"珊瑚礁の番人","note":"新しい水域の魚を調べ、観測所へ届けよう。","fishId":"rouninaji","quantity":1,"reward":220},
+    {"id":"bluewater","name":"潮境の翼","client":"測候船の技師","note":"新しい水域の魚を調べ、観測所へ届けよう。","fishId":"tobiuo","quantity":1,"reward":234},
+    {"id":"billfish","name":"沖合の碧い槍","client":"海洋研究所","note":"新しい水域の魚を調べ、観測所へ届けよう。","fishId":"kurokajiki","quantity":1,"reward":248}
   ]
 }

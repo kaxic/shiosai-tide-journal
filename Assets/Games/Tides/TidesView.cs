@@ -58,7 +58,7 @@ public sealed class TidesView : MonoBehaviour
         set=Group("Tidal field journal",transform);
         const string path="Tides/Art/";Material New(string key)=>new Material(Resources.Load<Shader>(path+key)){name=key};
         paint=New("Bank");water=New("LivingWater");sky=New("SeaSky");silk=New("FishingSilk");spray=New("RiverSpray");
-        string[] props={"_Grass","_Sand","_Wood","_Rock","_Leaves"},maps={"Sedge","TidalSand","Cedar","Strata","Canopy"};
+        string[] props={"_Grass","_Sand","_Wood","_Rock","_Leaves","_Grain"},maps={"Sedge","TidalSand","Cedar","Strata","Canopy","ShoreGrain"};
         for(int i=0;i<maps.Length;i++)paint.SetTexture(props[i],Resources.Load<Texture2D>(path+maps[i]));
         water.SetTexture("_Print",Resources.Load<Texture2D>(path+"Caustics"));formerSky=RenderSettings.skybox;RenderSettings.skybox=sky;
         cameraView=Camera.main;if(!cameraView){cameraView=Group("Waterside lens",set).gameObject.AddComponent<Camera>();cameraView.tag="MainCamera";}
@@ -116,12 +116,12 @@ public sealed class TidesView : MonoBehaviour
         skyHigh=Color.Lerp(skyHigh,C("94AAB3"),rain*.60f);horizon=Color.Lerp(horizon,C("B8C6C4"),rain*.61f);
         sky.SetColor("_Crown",skyHigh);sky.SetColor("_Air",horizon);sky.SetColor("_Cloud",Color.Lerp(horizon,Color.white,slot==3?.20f:.41f));sky.SetFloat("_Night",slot==3?1:0);
         paint.SetColor("_SkyInk",horizon);paint.SetVector("_Conditions",new Vector4(rain,slot==3?1:0,slot==2?1:0,0));
-        Color near=C(new[]{"7DB3A0","8EBAB0","8CAAA6","7ABEB7"}[habitat]),far=C(new[]{"5F9590","6F9DA4","668B96","548F9B"}[habitat]);
+        Color near=C(new[]{"7DB3A0","8EBAB0","8CAAA6","7ABEB7","69AD93","AEB89C","77D4CA","538CAB"}[habitat]),far=C(new[]{"5F9590","6F9DA4","668B96","548F9B","438D81","7F9F99","38A9B3","2D678D"}[habitat]);
         if(slot==3){near=Color.Lerp(near,C("466C80"),.64f);far=C("45637A");}
         else if(slot==2){near=Color.Lerp(near,C("C9987E"),.40f);far=Color.Lerp(far,C("998A9D"),.38f);}
         water.SetColor("_Shallow",near);water.SetColor("_Deep",far);water.SetColor("_Foam",Color.Lerp(horizon,C("D2EBDF"),.52f));
         water.SetColor("_Air",horizon);
-        water.SetVector("_Mood",new Vector4(habitat,rain,slot,tide));nextMirror=0;
+        water.SetVector("_Mood",new Vector4(habitat<4?habitat:new[]{.65f,.38f,1.8f,3.2f}[habitat-4],rain,slot,tide));nextMirror=0;
     }
     void Frame(TidesGame g,float dt,bool snap)
     {
