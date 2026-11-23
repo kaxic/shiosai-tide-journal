@@ -2,23 +2,32 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#15272a"><title>F 釣りと魚図鑑 | 潮彩作品集</title>
+  <meta name="theme-color" content="#15272a"><meta name="description" content="源流、干潟、外礁へと釣り歩く、魚の手帖です。魚が走るときは糸を送り、休めば巻き取る。釣り上げた一尾が標本画になり、場所と大きさの記録が残ります。">
+  <title>F釣りゲーム | 潮彩ゲーム棚</title>
   <link rel="icon" href="icon.png"><link rel="stylesheet" href="player.css"><link rel="stylesheet" href="touch.css"><script defer src="touch.js"></script>
 </head>
 <body>
 <header><a class="imprint" id="library-home" href="https://kaxic.github.io/shiosai-game-library/#F"><span aria-hidden="true">← </span>ゲーム一覧</a><span id="home-status" role="status"></span><a href="https://github.com/kaxic/shiosai-tide-journal">GitHub ↗</a></header>
 <main>
   <section id="stage" aria-label="ゲーム画面">
-    <canvas id="game" data-game="Tides" width="1280" height="720" tabindex="0" aria-label="F 釣りと魚図鑑のゲーム画面"></canvas>
+    <canvas id="game" data-game="Tides" width="1280" height="720" tabindex="0" aria-label="F釣りゲームのゲーム画面"></canvas>
     <div id="cover">
-      <div class="titleblock"><p class="genre">潮路の釣り手帖</p><h1>F 釣りと魚図鑑</h1><p class="intro">朝霧の渓谷から黒潮の測候台まで。
-八つの水域で四十八種の魚に出会う、海辺の調査旅行。</p>
-        <button id="launch">ゲームを開始 <span aria-hidden="true">›</span></button>
+      <div class="titleblock"><p class="genre">潮路の釣り手帖</p><h1>F釣りゲーム</h1><p class="intro">源流、干潟、外礁へと釣り歩く、魚の手帖です。魚が走るときは糸を送り、休めば巻き取る。釣り上げた一尾が標本画になり、場所と大きさの記録が残ります。</p>
+        <div class="cover-actions"><button id="launch">ゲームを開始 <span aria-hidden="true">›</span></button>
+          <a href="#how-to-play">遊び方を読む <span aria-hidden="true">↓</span></a></div>
         <div id="status" role="status" aria-live="polite"></div><progress id="meter" max="1" value="0" hidden></progress>
       </div>
     </div>
   </section>
-  <div class="bar"><span class="wordmark">F 釣りと魚図鑑</span><div class="buttons"><button id="help">操作方法</button><button id="full">全画面</button><a id="demo" href="media/demo.mp4" hidden>プレイ映像 ▷</a></div></div>
+  <div class="bar"><span class="wordmark">F釣りゲーム</span><div class="buttons"><button id="help">操作方法</button><button id="full">全画面</button><a id="demo" href="media/demo.mp4" hidden>プレイ映像 ▷</a></div></div>
+  <section class="play-guide" id="how-to-play" aria-labelledby="guide-title" tabindex="-1">
+    <h2 id="guide-title">このゲームの遊び方</h2>
+    <div class="guide-columns">
+      <section><h3>最初にすること</h3><p>最初の依頼は源流のオイカワ一尾。岸で川虫を付けて竿を構え、飛距離を決めて投げます。浮きがしっかり沈んだら合わせましょう。釣れた魚を依頼人に届けると次の水辺が開きます。</p></section>
+      <section><h3>遊びの流れ</h3><p>手帖に載る手掛かりを読み、餌・時刻・潮・投げる距離を変えて狙う魚を絞ります。掛かった後は張力を見ながら巻き、釣果を売って竿を強化。依頼に必要な尾数は売らずに取り置けます。</p></section>
+      <section><h3>目指すもの</h3><p>16件の依頼を進め、8か所の水辺にすむ48種の標本画を集めましょう。竿を鍛えたら源流のイトウや沖のクロカジキにも挑めます。手帖では魚種ごとに最大体長と最大重量を更新できます。</p></section>
+    </div>
+  </section>
   <dialog id="guide"><div class="dialogtop"><h2>操作方法</h2><button class="close">閉じる</button></div><p>キーボードとマウスで遊べます。進行はこのブラウザーに保存されます。</p><div id="controls">WASD・矢印で歩き、釣り場でEかSpaceで構える。左右で方向、上下で距離を決め、Spaceで投竿。浮きが沈んだらSpaceで合わせます。
 魚とのやり取りはSpace長押しで巻く、離して緩める。X 回収　P ゆっくり釣り。
 

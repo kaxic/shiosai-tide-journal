@@ -1,10 +1,10 @@
 {
   "key": "Tides",
-  "title": "F 釣りと魚図鑑",
+  "title": "F釣りゲーム",
   "subtitle": "潮路の釣り手帖",
   "english": "THE TIDE ANGLER'S JOURNAL",
   "product": "The Tide Anglers Journal",
-  "introduction": "朝霧の渓谷から黒潮の測候台まで。\n八つの水域で四十八種の魚に出会う、海辺の調査旅行。",
+  "introduction": "源流で竿を投げ、浮きが沈んだら魚を掛けよう。\n最初のオイカワを依頼人に届け、湖へ渡ろう。",
   "controls": "WASD・矢印で歩き、釣り場でEかSpaceで構える。左右で方向、上下で距離を決め、Spaceで投竿。浮きが沈んだらSpaceで合わせます。\n魚とのやり取りはSpace長押しで巻く、離して緩める。X 回収　P ゆっくり釣り。\n\nT 渡航　B 売店　H 釣り手帖　J 依頼　R 時刻。　F8 釣果カードの保存　F9 アルバム。",
   "accent": "#D4AA68",
   "ink": "#173D44",
